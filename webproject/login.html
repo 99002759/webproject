@@ -1,0 +1,126 @@
+<!DOCTYPE html>   
+<html>   
+<head>  
+<meta name="viewport" content="width=device-width, initial-scale=1">  
+<title> Login Page </title>  
+<!-- <script src="store.json"></script> -->
+<style>   
+Body {  
+  font-family: Calibri, Helvetica, sans-serif;  
+  background-image: linear-gradient(to left, rgba(255,0,0,0),#5eaefd);  
+}  
+button {   
+       background-color: #4CAF50;   
+       width: 20%;  
+        color: orange;   
+        padding: 5px;   
+        margin: 5px 0px;   
+        border: none;   
+        cursor: pointer;
+        align-content: center;
+         }   
+ form {   
+        border: 3px solid #f1f1f1;
+        text-align: center;
+        font-size: 100%;   
+
+    }   
+ input[type=text], input[type=number] {   
+        width: 10%;   
+        margin: 8px 0;  
+        padding: 8px 20px;   
+        display: inline-block;   
+        border: 2px solid green;   
+        box-sizing: border-box;   
+        text-align: center;
+        
+    } 
+ button:hover {   
+        opacity: 0.5;   
+    }   
+   
+        
+  
+</style>
+<script src="https://code.jquery.com/jquery-3.5.1.min.js"
+integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+<script>
+    const url = "http://localhost:1234/movies";
+    var valid=1
+    function saveData(){
+        let obj = { };
+                //data assigned to object
+                obj.userName = $("#name").val();
+                obj.userMobile = $("#number").val();
+                obj.userCity = $("#city").val();
+                $.post(url, obj, (data)=>{
+                    // $("input").val(" ");
+                })
+    
+        if(document.getElementById("name").value==""){
+            alert("Please enter name");
+            valid=0
+        }
+        else if(!document.getElementById("number").value.match(/[0-9]/)){
+            alert("Please enter number");
+           valid=0
+        }
+        else if(document.getElementById("city").value==""){
+            alert("Please enter city");
+            valid=0
+        }
+        else{
+            alert("Details submitted")
+        }
+        $("#valid").show();
+        return valid;
+    }
+    // function postchange(){
+    //             //create the object
+    //             let obj = { };
+    //             //data assigned to object
+    //             obj.userName = $("#name").val();
+    //             obj.userMobile = $("#number").val();
+    //             obj.userCity = $("#city").val();
+    //             $.post(url, obj, (data)=>{
+    //                 $("input").val(" ");
+    //             })
+    //             //call the post operation of the jquery ajax....
+    //             //display the message
+    //         }
+    function clickData(){
+        //var valid=saveData()
+         
+        if(valid==1)
+            window.location.href="cs.html";
+            //window.open("cs.html");
+    }
+
+
+    function init(){
+        //  $("button:eq(0)").click(postchange);
+        $("#valid").hide();
+       $("button:eq(1)"). click(clickData);
+    }
+    $(document).ready(init);
+
+</script>
+</head>    
+<body>    
+    <center> <h1> Movie Registration </h1> </center>   
+    <form>  
+        <div class="container">   
+            <label>Name : </label>   
+            <input type="text" placeholder="name" id="name" required><br>
+            <label>Mobile: </label>   
+            <input type="number" placeholder="Enter Number" id="number" required><br>
+            <label>City: </label> 
+            <input type="text" placeholder="Enter city" id="city" required><br>
+            <p><input type="button" value="Submit" onclick="saveData()"></p>
+            <label id="valid">For Seating arrangement:
+           <input type="button"  onclick="clickData()" value='click here'> 
+        </label>
+        </div>   
+    </form>     
+</body>     
+</html>  
